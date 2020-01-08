@@ -1,0 +1,37 @@
+body{
+  background-color:#3AFFA9;
+  font-weight:500
+}
+
+h1{
+  font-weight:900;
+}
+
+h2{
+  font-weight:600;
+}
+
+.recipe {
+  padding-inline-start:1rem;
+  padding:none;
+  margin:none;
+  color:white;
+  list-style:none;
+  max-height:70px;
+  overflow:auto;
+  background-color:#17252A;
+}
+
+.recipeItem:hover {
+  color:#17252A;
+  background-color: #DEF2F1;
+  cursor:pointer;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
