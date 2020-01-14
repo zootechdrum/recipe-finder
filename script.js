@@ -61,7 +61,6 @@ class App extends React.Component {
 
   componentDidMount() {
 
-
     if (
       localStorage.getItem("recipes") !== null &&
       localStorage.getItem("recipes") !== "[]"
@@ -85,40 +84,45 @@ class App extends React.Component {
    }else{
      recipeToAdd[event.target.name] = event.target.value.split(",")
    }
-   
-    this.setState({newRecipe:recipeToAdd})  
+
+    this.setState({newRecipe: recipeToAdd}) 
  }
   showModal = () => {
     this.setState({ show: true });
   };
 
   hideModal = () => {
+    console.log(recipes)
     for(var k = 0; k < recipes.length; k++){
-      if(recipes[k].name = "Recipe has not been Added"){
+      if(recipes[k].name === "Recipe has not been Added"){
         recipes.splice(k,1)
+        // console.log(recipes)
       }
     }
-    recipes.unshift(this.state.newRecipe)
+
+    recipes.push(this.state.newRecipe)
+    console.log(recipes)
     localStorage.setItem("recipes", JSON.stringify(recipes))
     this.setState({ show: false, currentRecipe:recipes[0] });
   };
 
   delete(recipe) {
     const updatedRecipes = recipes.filter(item => item.name !== recipe);
-    if(updatedRecipes === []){
-      recipes.push(noRecipe)
-      this.setState({currentRecipe: recipes[0]})
-    }else{
     const updateLocalStore = localStorage.setItem(
       "recipes",
       JSON.stringify(updatedRecipes)
     );
     const getLocalStore = localStorage.getItem("recipes");
+    if(getLocalStore === "[]"){
+      recipes = [];
+       recipes.push(noRecipe)
+      this.setState({currentRecipe: recipes[0]})     
+    }else{
     const newObject = JSON.parse(getLocalStore);
     recipes = newObject;
     console.log("k")
     this.setState({ currentRecipe: recipes[0] });
-    }
+      }
   }
 
   handler(food) {
@@ -233,7 +237,7 @@ function Modal({ handleClose, show, children, handleChange }) {
               onClick={handleClose}
               className="btn btn-success"
             >
-              close
+              SUBMIT
             </button>
           </div>
         </form>
